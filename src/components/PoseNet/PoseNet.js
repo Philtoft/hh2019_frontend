@@ -34,7 +34,7 @@ export default class PoseNet extends Component {
     try {
       await this.setupCamera();
     } catch (e) {
-      throw "Please enable your camera";
+      throw new Error( "Please enable your camera");
     } finally {
       this.setState({ loading: false });
     }
@@ -50,7 +50,7 @@ export default class PoseNet extends Component {
 
   async setupCamera() {
     if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
-      throw "Browser API navigator.mediaDevices.getUserMedia not available";
+      throw new Error("Browser API navigator.mediaDevices.getUserMedia not available");
     }
 
     const { videoWidth, videoHeight } = this.props;
