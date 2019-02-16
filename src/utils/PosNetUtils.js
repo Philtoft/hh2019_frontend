@@ -37,7 +37,6 @@ export function checkMidStomach(keypoints, minConfidence) {
   }
   return false;
 }
-
 export function drawKeypoints(
   keypoints,
   minConfidence,

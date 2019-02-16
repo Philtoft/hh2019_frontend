@@ -1,24 +1,49 @@
 import React, { Component } from "react";
-import PoseNet from "./PoseNet/PoseNet";
 import "./ContextView.scss";
+import WelcomePage from "./WelcomePage/WelcomePage";
+import PoseNetContainer from "./PoseNetContainer/PoseNetContainer";
+import PainTypeView from "./PainTypeView/PainTypeView";
+import SymptomsView from "./SymptomsView/SymptomsView";
 
 export default class ContextView extends Component {
+  
   render() {
-    switch (this.props.current_intent) {
-      case "Default Welcome Intent":
-        return (
-          <div className="context_view">
-            <PoseNet />
+    const intent = this.props.data.currentIntent;
+    console.log(intent);
+    switch(intent){
+      case "cameraMode":
+      case "mouseMode":
+        return(
+          <div id="welcome">
+            {/* <PoseNetContainer  data = {this.props.data} /> */}
+            <PainTypeView data={this.props.data} />
+            <SymptomsView data={this.props.data} />
           </div>
         );
-      case "Point Pain Location":
-        return (
-          <div className="context_view">
-            <PoseNet />
+      case "welcome":
+        return(
+          <div  id="welcome">
+            <WelcomePage 
+            data={this.props.data} 
+            clickCamera = {this.props.clickCamera} 
+            clickMouse = {this.props.clickMouse}
+            />
           </div>
-        );
+        )
       default:
-        return <div>HELLO (somethings wrong here</div>;
+        return (
+          <div>
+            <WelcomePage 
+              data={this.props.data} 
+              clickCamera = {this.props.clickCamera} 
+              clickMouse = {this.props.clickMouse}
+            />
+            <PainTypeView data={this.props.data} />
+            <SymptomsView data={this.props.data} />
+          </div>
+        );
     }
+    
+    
   }
 }
