@@ -31,30 +31,10 @@ export default class PoseNet extends Component {
     this.state = {
       loading: true,
       isMidStomach: false,
+      isFlippedLogic: false,
       count: 0,
       timer_counts: 2
     };
-  }
-  //Timer stuff
-  componentWillUnmount() {
-    clearInterval(this.timer);
-  }
-  tick() {
-    if (this.state.count === this.state.timer_counts) {
-      console.log("YOU SHOW YOUR BELLY !!");
-      this.stopTimer();
-    }
-    this.setState({ count: this.state.count + 1 });
-  }
-  startTimer() {
-    console.log("Timer started!");
-    clearInterval(this.timer);
-    this.timer = setInterval(this.tick.bind(this), 1000);
-  }
-  stopTimer() {
-    console.log("Timer stoped!");
-    clearInterval(this.timer);
-    this.setState({ count: 0 });
   }
 
   async componentWillMount() {
@@ -71,6 +51,39 @@ export default class PoseNet extends Component {
     }
     this.detectPose();
   }
+  componentWillUnmount() {
+    clearInterval(this.timer);
+  }
+
+  //Timer stuff starts
+  tick() {
+    if (this.state.count === this.state.timer_counts) {
+      this.stopTimer();
+    }
+    this.setState({ count: this.state.count + 1 });
+  }
+  startTimer() {
+    console.log("Timer started!");
+    clearInterval(this.timer);
+    this.timer = setInterval(this.tick.bind(this), 1000);
+  }
+  stopTimer() {
+    console.log("Timer stoped!");
+
+    if (!this.state.isFlippedLogic) {
+      //Flip the logic, wait untill the hand is removed
+      console.log("YOU SHOW YOUR BELLY !!");
+      this.setState({ isFlippedLogic: true });
+    } else {
+      //TODO actual state change
+      this.setState({ isFlippedLogic: false });
+      console.log("YOU  DON'T SHOW YOUR BELLY !!");
+    }
+
+    clearInterval(this.timer);
+    this.setState({ count: 0 });
+  }
+  //Timer stuff ends
 
   getCanvas = elem => {
     this.canvas = elem;
@@ -182,7 +195,6 @@ export default class PoseNet extends Component {
 
     canvas.width = videoWidth;
     canvas.height = videoHeight;
-
     this.poseDetectionFrame(ctx);
   }
 
