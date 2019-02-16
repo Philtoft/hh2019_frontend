@@ -122,7 +122,7 @@ export default class PoseNet extends Component {
         ctx.restore();
       }
 
-      if (pose.score >= pose.minPoseConfidence) {
+      if (pose.score >= minPoseConfidence) {
         if (showPoints) {
           drawKeypoints(pose.keypoints, minPartConfidence, skeletonColor, ctx);
           checkMidStomach(pose.keypoints, minPartConfidence);
