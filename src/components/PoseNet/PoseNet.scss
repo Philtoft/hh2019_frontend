@@ -1,5 +1,4 @@
 .PoseNet {
-    
   video {
     -moz-transform: scaleX(-1);
     -o-transform: scaleX(-1);
@@ -7,4 +6,7 @@
     transform: scaleX(-1);
     display: none;
   }
+  width: 500px;
+  float: right;
+  border: 1px solid #d5d5d5;
 }

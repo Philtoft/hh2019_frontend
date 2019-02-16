@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import "./App.sass";
+import "./App.scss";
 import ContextView from "./components/ContextView";
 import ChatBox from "./components/ChatBox/ChatBox";
 
@@ -68,7 +68,7 @@ class App extends Component {
 
   render() {
     return (
-      <div>
+      <div className="main">
         <ChatBox
           handleSubmit={this.handleSubmit}
           handleTextInput={this.handleTextInput}

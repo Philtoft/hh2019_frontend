@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import PoseNet from "./PoseNet/PoseNet";
-import "./ContextView.sass";
+import "./ContextView.scss";
 
 export default class ContextView extends Component {
   render() {
