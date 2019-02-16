@@ -9,6 +9,7 @@ function isiOS() {
 export function isMobile() {
   return isAndroid() || isiOS();
 }
+
 export function drawKeypoints(keypoints, minConfidence, skeletonColor, ctx, scale = 1) {
   keypoints.forEach(keypoint => {
     if (keypoint.score >= minConfidence) {

@@ -1,19 +1,19 @@
 import React, { Component } from "react";
 import * as posenet from "@tensorflow-models/posenet";
-import { isMobile, drawKeypoints, drawSkeleton } from '../../utils/PosNetUtils'
+import { isMobile, drawKeypoints, drawSkeleton } from "../../utils/PosNetUtils";
+import "./PoseNet.scss";
 
 export default class PoseNet extends Component {
   static defaultProps = {
     videoWidth: 600,
     videoHeight: 480,
     flipHorizontal: true,
-    mobileNetArchitecture: isMobile() ? 0.5 : 1.01,
+    mobileNetArchitecture: isMobile() ? 0.5 : 0.75,
     showVideo: true,
     showSkeleton: true,
     showPoints: true,
     minPoseConfidence: 0.1,
     minPartConfidence: 0.5,
-    nmsRadius: 20.0,
     outputStride: 16,
     imageScaleFactor: 0.5,
     skeletonColor: "aqua",
@@ -34,10 +34,11 @@ export default class PoseNet extends Component {
     try {
       await this.setupCamera();
     } catch (e) {
-      throw new Error( "Please enable your camera");
+      throw new Error("Please enable your camera");
     } finally {
       this.setState({ loading: false });
     }
+    this.detectPose();
   }
 
   getCanvas = elem => {
@@ -50,7 +51,9 @@ export default class PoseNet extends Component {
 
   async setupCamera() {
     if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
-      throw new Error("Browser API navigator.mediaDevices.getUserMedia not available");
+      throw new Error(
+        "Browser API navigator.mediaDevices.getUserMedia not available"
+      );
     }
 
     const { videoWidth, videoHeight } = this.props;
@@ -97,7 +100,6 @@ export default class PoseNet extends Component {
 
     const net = this.net;
     const video = this.video;
-
     const poseDetectionFrameInner = async () => {
       let poses = [];
 
