@@ -17,8 +17,8 @@ export default class PoseNet extends Component {
     showVideo: true,
     showSkeleton: true,
     showPoints: true,
-    minPoseConfidence: 0.1,
-    minPartConfidence: 0.5,
+    minPoseConfidence: 0.5,
+    minPartConfidence: 0.7,
     outputStride: 16,
     imageScaleFactor: 0.5,
     skeletonColor: "aqua",
@@ -28,7 +28,33 @@ export default class PoseNet extends Component {
 
   constructor(props) {
     super(props, PoseNet.defaultProps);
-    this.state = { loading: true };
+    this.state = {
+      loading: true,
+      isMidStomach: false,
+      count: 0,
+      timer_counts: 2
+    };
+  }
+  //Timer stuff
+  componentWillUnmount() {
+    clearInterval(this.timer);
+  }
+  tick() {
+    if (this.state.count === this.state.timer_counts) {
+      console.log("YOU SHOW YOUR BELLY !!");
+      this.stopTimer();
+    }
+    this.setState({ count: this.state.count + 1 });
+  }
+  startTimer() {
+    console.log("Timer started!");
+    clearInterval(this.timer);
+    this.timer = setInterval(this.tick.bind(this), 1000);
+  }
+  stopTimer() {
+    console.log("Timer stoped!");
+    clearInterval(this.timer);
+    this.setState({ count: 0 });
   }
 
   async componentWillMount() {
@@ -112,7 +138,6 @@ export default class PoseNet extends Component {
         flipHorizontal,
         outputStride
       );
-
       ctx.clearRect(0, 0, videoWidth, videoHeight);
       if (showVideo) {
         ctx.save();
@@ -125,7 +150,14 @@ export default class PoseNet extends Component {
       if (pose.score >= minPoseConfidence) {
         if (showPoints) {
           drawKeypoints(pose.keypoints, minPartConfidence, skeletonColor, ctx);
-          checkMidStomach(pose.keypoints, minPartConfidence);
+          const pointsToMidStomach = checkMidStomach(
+            pose.keypoints,
+            minPartConfidence
+          );
+          if (pointsToMidStomach !== this.state.isMidStomach) {
+            this.setState({ isMidStomach: pointsToMidStomach });
+            pointsToMidStomach ? this.startTimer() : this.stopTimer();
+          }
         }
         if (showSkeleton) {
           drawSkeleton(
