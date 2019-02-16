@@ -1,6 +1,11 @@
 import React, { Component } from "react";
 import * as posenet from "@tensorflow-models/posenet";
-import { isMobile, drawKeypoints, drawSkeleton } from "../../utils/PosNetUtils";
+import {
+  isMobile,
+  drawKeypoints,
+  drawSkeleton,
+  checkMidStomach
+} from "../../utils/PosNetUtils";
 import "./PoseNet.scss";
 
 export default class PoseNet extends Component {
@@ -101,16 +106,12 @@ export default class PoseNet extends Component {
     const net = this.net;
     const video = this.video;
     const poseDetectionFrameInner = async () => {
-      let poses = [];
-
       const pose = await net.estimateSinglePose(
         video,
         imageScaleFactor,
         flipHorizontal,
         outputStride
       );
-
-      poses.push(pose);
 
       ctx.clearRect(0, 0, videoWidth, videoHeight);
       if (showVideo) {
@@ -121,22 +122,22 @@ export default class PoseNet extends Component {
         ctx.restore();
       }
 
-      poses.forEach(({ score, keypoints }) => {
-        if (score >= minPoseConfidence) {
-          if (showPoints) {
-            drawKeypoints(keypoints, minPartConfidence, skeletonColor, ctx);
-          }
-          if (showSkeleton) {
-            drawSkeleton(
-              keypoints,
-              minPartConfidence,
-              skeletonColor,
-              skeletonLineWidth,
-              ctx
-            );
-          }
+      if (pose.score >= pose.minPoseConfidence) {
+        if (showPoints) {
+          drawKeypoints(pose.keypoints, minPartConfidence, skeletonColor, ctx);
+          checkMidStomach(pose.keypoints, minPartConfidence);
         }
-      });
+        if (showSkeleton) {
+          drawSkeleton(
+            pose.keypoints,
+            minPartConfidence,
+            skeletonColor,
+            skeletonLineWidth,
+            ctx
+          );
+        }
+      }
+
       requestAnimationFrame(poseDetectionFrameInner);
     };
     poseDetectionFrameInner();
