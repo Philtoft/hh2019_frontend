@@ -3,6 +3,7 @@ import "./App.scss";
 import ContextView from "./components/ContextView";
 
 import axios from "axios";
+import { PoseNet } from "@tensorflow-models/posenet";
 
 const BASE_URL = "http://localhost:5000";
 
@@ -10,7 +11,11 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      current_intent: "Default Welcome Intent"
+      currentIntent: "welcome",
+      painType: "",
+      additionalSymptoms: "",
+      painLocation: "",
+      gender: "female"
     };
   }
   componentDidMount() {
@@ -20,9 +25,10 @@ class App extends Component {
     });
   }
   render() {
+    const { data } = this.state;
     return (
       <div className="main">
-        <ContextView current_intent={this.state.current_intent} />
+        <ContextView data={data} />
       </div>
     );
   }

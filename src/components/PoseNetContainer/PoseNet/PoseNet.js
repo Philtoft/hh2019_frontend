@@ -5,7 +5,7 @@ import {
   drawKeypoints,
   drawSkeleton,
   checkMidStomach
-} from "../../utils/PosNetUtils";
+} from "../../../utils/PosNetUtils";
 import "./PoseNet.scss";
 
 export default class PoseNet extends Component {
