@@ -15,13 +15,13 @@ class App extends Component {
     super(props);
     this.state = {
       userMessage: "",
-      conversation: []
+      conversation: [],
+      current_intent: "Default Welcome Intent"
     };
   }
   componentDidMount() {
     this.axios_instance = axios.create({
       baseURL: BASE_URL,
-      timeout: 1000,
       headers: { "Content-Type": "application/json" }
     });
     const pusher = new Pusher(PUSHER_APP_KEY, {
@@ -34,8 +34,10 @@ class App extends Component {
         text: data.message,
         user: "ai"
       };
+      debugger;
       this.setState({
-        conversation: [...this.state.conversation, msg]
+        conversation: [...this.state.conversation, msg],
+        current_intent: data.current_intent
       });
     });
   }
@@ -75,7 +77,7 @@ class App extends Component {
           userMessage={this.state.userMessage}
           conversation={this.state.conversation}
         />
-        <ContextView />
+        <ContextView current_intent={this.state.current_intent} />
       </div>
     );
   }
