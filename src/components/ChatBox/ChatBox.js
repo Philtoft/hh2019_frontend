@@ -2,6 +2,13 @@ import React, { Component } from "react";
 import "./ChatBox.css";
 
 class ChatBox extends Component {
+  handleTextInput = e => {
+    this.props.handleTextInput(e);
+  };
+  handleSubmit = e => {
+    this.props.handleSubmit(e);
+  };
+
   render() {
     //TODO separate Chat bubble
     const ChatBubble = (text, i, className) => {
@@ -20,10 +27,10 @@ class ChatBox extends Component {
         <div className="chat-window">
           <div className="conversation-view">{chat}</div>
           <div className="message-box">
-            <form onSubmit={this.props.handleSubmit}>
+            <form onSubmit={this.handleSubmit}>
               <input
                 value={this.props.userMessage}
-                onInput={this.props.handleTextInput}
+                onChange={this.handleTextInput}
                 className="text-input"
                 type="text"
                 autoFocus
