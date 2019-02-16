@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import "./ChatBubble.sass";
+import "./ChatBubble.css";
 
 export default class ChatBubble extends Component {
   render() {

@@ -1,21 +1,29 @@
 import React, { Component } from "react";
-import "./ChatBox.sass";
-import ChatBubble from "./ChatBubble/ChatBubble";
+import "./ChatBox.css";
 
 class ChatBox extends Component {
   render() {
+    //TODO separate Chat bubble
+    const ChatBubble = (text, i, className) => {
+      return (
+        <div key={`${className}-${i}`} className={`${className} chat-bubble`}>
+          <span className="chat-content">{text}</span>
+        </div>
+      );
+    };
     const chat = this.props.conversation.map((e, index) =>
       ChatBubble(e.text, index, e.user)
     );
+
     return (
       <div>
         <div className="chat-window">
           <div className="conversation-view">{chat}</div>
           <div className="message-box">
-            <form onSubmit={this.handleSubmit}>
+            <form onSubmit={this.props.handleSubmit}>
               <input
-                value={this.state.userMessage}
-                onInput={this.handleTextInput}
+                value={this.props.userMessage}
+                onInput={this.props.handleTextInput}
                 className="text-input"
                 type="text"
                 autoFocus
