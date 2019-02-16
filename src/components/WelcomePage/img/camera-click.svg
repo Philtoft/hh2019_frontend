@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="224px" height="224px" viewBox="0 0 224 224" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 51.2 (57519) - http://www.bohemiancoding.com/sketch -->
+    <title>Group 6</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <filter x="-21.4%" y="-15.3%" width="142.8%" height="142.8%" filterUnits="objectBoundingBox" id="filter-1">
+            <feOffset dx="0" dy="11" in="SourceAlpha" result="shadowOffsetOuter1"></feOffset>
+            <feGaussianBlur stdDeviation="11" in="shadowOffsetOuter1" result="shadowBlurOuter1"></feGaussianBlur>
+            <feColorMatrix values="0 0 0 0 0   0 0 0 0 0   0 0 0 0 0  0 0 0 0.344061368 0" type="matrix" in="shadowBlurOuter1" result="shadowMatrixOuter1"></feColorMatrix>
+            <feMerge>
+                <feMergeNode in="shadowMatrixOuter1"></feMergeNode>
+                <feMergeNode in="SourceGraphic"></feMergeNode>
+            </feMerge>
+        </filter>
+        <linearGradient x1="50%" y1="0%" x2="50%" y2="100%" id="linearGradient-2">
+            <stop stop-color="#005C45" offset="0%"></stop>
+            <stop stop-color="#4CA76D" offset="100%"></stop>
+        </linearGradient>
+    </defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="First-screen" transform="translate(-468.000000, -637.000000)">
+            <g id="Group-6" filter="url(#filter-1)" transform="translate(490.000000, 648.000000)">
+                <g id="Group-2">
+                    <rect id="Rectangle-4" fill="#FFFFFF" x="0" y="0" width="180" height="180" rx="5"></rect>
+                    <g id="Group-3" transform="translate(40.000000, 116.000000)" fill="#474747" font-family="Roboto-Regular, Roboto" font-size="18" font-weight="normal">
+                        <text id="with-camera">
+                            <tspan x="0.899902344" y="17">with camera</tspan>
+                        </text>
+                    </g>
+                    <g id="noun_Camera_205116" transform="translate(53.000000, 32.000000)" fill="url(#linearGradient-2)" fill-rule="nonzero">
+                        <path d="M32.5,17 C41.1111111,17 48,23.8888889 48,32.5 C48,41.1111111 41.1111111,48 32.5,48 C23.8888889,48 17,41.1111111 17,32.5 C17,23.8888889 23.8888889,17 32.5,17 Z M33,20 C26.3828571,20 21,25.3828571 21,32 C21,38.6171429 26.3828571,44 33,44 C39.6171429,44 45,38.6171429 45,32 C45,25.3828571 39.6171429,20 33,20 Z M10.2631579,6.82352941 L17.1052632,6.82352941 L23.9473684,0 L41.0526316,0 L47.8947368,6.82352941 L54.7368421,6.82352941 C60.4157895,6.82352941 65,11.3952941 65,17.0588235 L65,47.7647059 C65,53.4282353 60.4157895,58 54.7368421,58 L10.2631579,58 C4.58421053,58 0,53.4282353 0,47.7647059 L0,17.0588235 C0,11.3952941 4.58421053,6.82352941 10.2631579,6.82352941 Z M24.8694118,3 L18.0458824,9.8 L9.82352941,9.8 C6.07058824,9.8 3,12.86 3,16.6 L3,47.2 C3,50.94 6.07058824,54 9.82352941,54 L54.1764706,54 C57.9294118,54 61,50.94 61,47.2 L61,16.6 C61,12.86 57.9294118,9.8 54.1764706,9.8 L45.9541176,9.8 L39.1305882,3 L24.8694118,3 Z" id="Shape"></path>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>
