@@ -35,7 +35,8 @@ export default class PoseNet extends Component {
       isMidStomach: false,
       isFlippedLogic: false,
       count: 0,
-      timer_counts: 2,
+      timer_counts: 1,
+      isCounting: false,
       selection: [],
       isStatic: false,
       imgUrl: ""
@@ -70,14 +71,17 @@ export default class PoseNet extends Component {
   startTimer() {
     console.log("Timer started!");
     clearInterval(this.timer);
-    this.timer = setInterval(this.tick.bind(this), 1000);
+    this.setState({ isCounting: true }, () => {
+      this.timer = setInterval(this.tick.bind(this), 1000);
+    });
   }
   stopTimer() {
+    console.log("Timer stoped!");
+    this.setState({ isCounting: false });
     if (!this.state.isFlippedLogic) {
       //Flip the logic, wait untill the hand is removed
       this.setState({ isFlippedLogic: true });
     } else if (this.state.imgUrl === "") {
-      console.log("wrong place");
       const canvas = this.canvas;
       const url = takeSnapshot(
         canvas,
@@ -89,7 +93,6 @@ export default class PoseNet extends Component {
       );
 
       this.setState({
-        isFlippedLogic: false,
         imgUrl: url
       });
 
@@ -185,9 +188,13 @@ export default class PoseNet extends Component {
             pose.keypoints,
             minPartConfidence
           );
-          if (pointsToMidStomach !== this.state.isMidStomach) {
+          if (
+            pointsToMidStomach !== this.state.isMidStomach &&
+            !this.state.isCounting
+          ) {
             this.setState({ isMidStomach: pointsToMidStomach });
-            pointsToMidStomach ? this.startTimer() : this.stopTimer();
+            if (pointsToMidStomach || this.state.isFlippedLogic)
+              this.startTimer();
           }
           if (positions !== null && !this.state.isFlippedLogic) {
             this.setState({
@@ -230,6 +237,12 @@ export default class PoseNet extends Component {
     };
     return (
       <div className="PoseNet">
+        <h1>
+          Selected Part:{" "}
+          {this.state.isMidStomach || this.state.isFlippedLogic
+            ? "Mid stomach"
+            : "None"}
+        </h1>
         <video playsInline ref={this.getVideo} />
         <canvas ref={this.getCanvas} style={stateStyleCanvas} />
         <img src={this.state.imgUrl} alt="" style={stateStyleImg} />

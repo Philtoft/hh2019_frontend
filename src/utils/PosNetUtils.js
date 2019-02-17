@@ -14,24 +14,39 @@ export function checkMidStomach(keypoints, minConfidence) {
   let pointsOfInterest = {
     leftWrist: { point: keypoints[9] },
     leftHip: { point: keypoints[11] },
-    leftShoulder: { point: keypoints[5] }
+    rightHip: { point: keypoints[12] },
+    leftShoulder: { point: keypoints[5] },
+    rightShoulder: { point: keypoints[6] }
   };
   let confidentPoints = Object.keys(pointsOfInterest).filter(function(key) {
     return pointsOfInterest[key].point.score >= minConfidence;
   });
-  if (confidentPoints.length === 3) {
+  if (confidentPoints.length === 5) {
     const bodyLength = Math.abs(
       pointsOfInterest["leftShoulder"].point.position.y -
         pointsOfInterest["leftHip"].point.position.y
     );
-
-    const lowerThreshold =
+    const bodyWidth = Math.abs(
+      pointsOfInterest["rightShoulder"].point.position.x -
+        pointsOfInterest["leftShoulder"].point.position.x
+    );
+    const lowerThreshold_y =
       pointsOfInterest["leftShoulder"].point.position.y + 0.3 * bodyLength;
-    const upperThreshold =
+    const upperThreshold_y =
       pointsOfInterest["leftShoulder"].point.position.y + 0.6 * bodyLength;
     const handLocation_y = pointsOfInterest["leftWrist"].point.position.y;
 
-    if (lowerThreshold < handLocation_y && handLocation_y < upperThreshold) {
+    const lowerThreshold_x =
+      pointsOfInterest["rightShoulder"].point.position.x + 0.2 * bodyWidth;
+    const upperThreshold_x =
+      pointsOfInterest["rightShoulder"].point.position.x + 0.8 * bodyWidth;
+    const handLocation_x = pointsOfInterest["leftWrist"].point.position.x;
+
+    if (
+      lowerThreshold_y < handLocation_y &&
+      handLocation_y < upperThreshold_y &&
+      (lowerThreshold_x < handLocation_x && handLocation_x < upperThreshold_x)
+    ) {
       return {
         pointsToMidStomach: true,
         positions: pointsOfInterest["leftWrist"].point.position
