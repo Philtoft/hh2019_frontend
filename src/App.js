@@ -15,7 +15,8 @@ class App extends Component {
       additionalSymptoms: "",
       painLocation: "",
       gender: true,
-      genderChosen: false
+      genderChosen: false,
+      imgUrl: ""
     };
   }
 
@@ -25,16 +26,20 @@ class App extends Component {
       headers: { "Content-Type": "application/json" }
     });
   }
-  setSelection = (selection, location) => {
+  setSelection = (selection, location, url) => {
     this.setState({
       selection: selection,
-      painLocation: location
+      painLocation: location,
+      currentIntent: "pain",
+      imgUrl: url
     });
   };
+
   genderChooser = () => {
     this.setState((previousState, props) => ({
       gender: !previousState.gender,
-      genderChosen: true
+      genderChosen: true,
+      currentIntent: "showStomach"
     }));
   };
 

@@ -4,6 +4,7 @@ import WelcomePage from "./WelcomePage/WelcomePage";
 import PoseNetContainer from "./PoseNetContainer/PoseNetContainer";
 import PainTypeView from "./PainTypeView/PainTypeView";
 import SymptomsView from "./SymptomsView/SymptomsView";
+import GenderChooser from "./PoseNetContainer/GenderChooser/GenderChooser";
 
 export default class ContextView extends Component {
   render() {
@@ -34,6 +35,27 @@ export default class ContextView extends Component {
             </div>
           );
         }
+      case "showStomach":
+        return (
+          <div className="full-container">
+            <PoseNetContainer
+              genderChooser={this.props.genderChooser}
+              data={this.props.data}
+              setSelection={this.props.setSelection}
+            />
+          </div>
+        );
+      case "pain":
+        return (
+          <div className="full-container">
+            <PoseNetContainer
+              genderChooser={this.props.genderChooser}
+              data={this.props.data}
+              setSelection={this.props.setSelection}
+            />
+            <PainTypeView data={this.props.data} />
+          </div>
+        );
       case "welcome":
         return (
           <div id="welcome">

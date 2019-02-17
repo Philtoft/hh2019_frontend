@@ -4,11 +4,21 @@ import GenderChooser from "./GenderChooser/GenderChooser";
 export default class PoseNetContainer extends Component {
   render() {
     //return <PoseNet />;
-    if (this.props.data.genderChosen) {
+    if (this.props.data.currentIntent === "showStomach") {
       return (
         <div className="column">
           <GenderChooser genderChooser={this.props.genderChooser} />
           <PoseNet setSelection={this.props.setSelection} />
+        </div>
+      );
+    } else if (
+      this.props.data.imgUrl !== "" &&
+      this.props.data.currentIntent === "pain"
+    ) {
+      return (
+        <div className="column">
+          <GenderChooser genderChooser={this.props.genderChooser} />
+          <img className="screenshot" src={this.props.data.imgUrl} alt="" />
         </div>
       );
     } else {

@@ -101,7 +101,11 @@ export default class PoseNet extends Component {
             imgUrl: url
           });
           debugger;
-          this.props.setSelection(this.state.selection, this.state.bodyPart);
+          this.props.setSelection(
+            this.state.selection,
+            this.state.bodyPart,
+            this.state.imgUrl
+          );
         } else {
           this.setState({ isFlippedLogic: false });
         }
@@ -238,9 +242,6 @@ export default class PoseNet extends Component {
   }
 
   render() {
-    const stateStyleImg = {
-      display: this.state.imgUrl === "" ? "none" : "block"
-    };
     const stateStyleCanvas = {
       display: this.state.imgUrl === "" ? "block" : "none"
     };
@@ -248,14 +249,14 @@ export default class PoseNet extends Component {
       <div className="PoseNet">
         <h1
           style={
-            this.state.isFlippedLogic ? { color: "green" } : { color: "red" }
+            this.state.isFlippedLogic ? { color: "#fff" } : { color: "#000" }
           }
         >
+          Please point where it hurts <br />
           Selected Part: {this.state.bodyPart}
         </h1>
         <video playsInline ref={this.getVideo} />
         <canvas ref={this.getCanvas} style={stateStyleCanvas} />
-        <img src={this.state.imgUrl} alt="" style={stateStyleImg} />
       </div>
     );
   }
