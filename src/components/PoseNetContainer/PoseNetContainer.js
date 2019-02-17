@@ -13,7 +13,7 @@ export default class PoseNetContainer extends Component {
       );
     } else if (
       this.props.data.imgUrl !== "" &&
-      this.props.data.currentIntent === "pain"
+      (this.props.data.currentIntent === "pain" || this.props.data.currentIntent === "results" || this.props.data.currentIntent === "resultsFull")
     ) {
       return (
         <div className="column">

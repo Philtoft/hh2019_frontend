@@ -43,6 +43,18 @@ class App extends Component {
     }));
   };
 
+  painChoice = () => {
+    this.setState((previousState, props) => ({
+      currentIntent: "results"
+    }));
+  };
+
+  sympClick = () => {
+    this.setState((previousState, props) => ({
+      currentIntent: "resultsFull"
+    }));
+  };
+
   clickCamera = () => {
     this.setState({ currentIntent: "cameraMode" });
   };
@@ -61,6 +73,8 @@ class App extends Component {
           clickMouse={this.clickMouse}
           clickCamera={this.clickCamera}
           genderChooser={this.genderChooser}
+          painChoice={this.painChoice}
+          sympClick={this.sympClick}
         />
       </div>
     );

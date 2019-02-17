@@ -1,0 +1,72 @@
+.diagnosis {
+    display: flex;
+    flex-direction: column;
+    background: #4BA56C;
+    color: #fff;
+    border-radius: 5px;
+    margin-top: 30px;
+}
+
+.diagnosis hr {
+    width: 80%;
+    margin: 10px auto 0;
+    color: rgba(0, 0, 0, 0);
+    border-top: 1px dashed #fff;
+}
+
+.diagnosis-header {
+    width: 100%;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    flex-direction: row;
+    justify-content: space-around;
+}
+
+.diagnosis-header .header-item {
+    width: 50%;
+    padding: 30px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.diagnosis-header .header-item:last-child {
+    background: rgb(49, 114, 73);
+    padding: 10px;
+}
+
+.diagnosis-header .header-item h2 {
+    font-size: 20px;
+    font-weight: 100;
+}
+
+.diagnosis-content {
+    padding: 20px;
+    padding-top: 0;
+}
+
+.diagnosis-content h3 {
+    font-size: 20px;
+    background: rgb(97, 221, 142);
+    padding: 10px 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    font-weight: 100;
+}
+
+.diagnosis-text {
+    padding: 0 20px;
+    line-height: 1.6;
+    font-size: 14px;
+    margin-top: 20px;
+}
+
+.doctor-recommendation {
+    border-top: 1px dashed #fff;
+    margin-top: 20px;
+    padding-top: 10px;
+    color: rgb(231, 231, 231)
+}

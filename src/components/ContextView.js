@@ -4,9 +4,11 @@ import WelcomePage from "./WelcomePage/WelcomePage";
 import PoseNetContainer from "./PoseNetContainer/PoseNetContainer";
 import PainTypeView from "./PainTypeView/PainTypeView";
 import SymptomsView from "./SymptomsView/SymptomsView";
+import Results from "./Results/Results";
 import GenderChooser from "./PoseNetContainer/GenderChooser/GenderChooser";
 
 export default class ContextView extends Component {
+
   render() {
     const intent = this.props.data.currentIntent;
     console.log(intent);
@@ -21,7 +23,7 @@ export default class ContextView extends Component {
                 data={this.props.data}
                 setSelection={this.props.setSelection}
               />
-              <PainTypeView data={this.props.data} />
+              <PainTypeView data={this.props.data} sympClick={this.props.sympClick} painChoice={this.props.painChoice} />
             </div>
           );
         } else {
@@ -53,7 +55,31 @@ export default class ContextView extends Component {
               data={this.props.data}
               setSelection={this.props.setSelection}
             />
-            <PainTypeView data={this.props.data} />
+            <PainTypeView data={this.props.data} sympClick={this.props.sympClick} painChoice={this.props.painChoice} />
+          </div>
+        );
+      case "results":
+        return (
+          <div className="full-container">
+            <PoseNetContainer
+              genderChooser={this.props.genderChooser}
+              data={this.props.data}
+              setSelection={this.props.setSelection}
+            />
+            <PainTypeView data={this.props.data} sympClick={this.props.sympClick} painChoice={this.props.painChoice} />
+            <Results />
+          </div>
+        );
+      case "resultsFull":
+        return (
+          <div className="full-container">
+            <PoseNetContainer
+              genderChooser={this.props.genderChooser}
+              data={this.props.data}
+              setSelection={this.props.setSelection}
+            />
+            <PainTypeView data={this.props.data} sympClick={this.props.sympClick} painChoice={this.props.painChoice} />
+            <Results visibleSymptoms={true} dia={true} />
           </div>
         );
       case "welcome":

@@ -7,6 +7,11 @@ import pins from "./img/pins.gif";
 import doctor from "./img/doctor.png"
 
 export default class PainTypeView extends Component {
+
+  sympCLick = () => {
+    alert("Wow");
+  }
+
   painClick = (e) => {
     // remove existing active values
     let list = document.getElementsByClassName('active');
@@ -14,6 +19,8 @@ export default class PainTypeView extends Component {
       if (element.classList.contains("pain-button")) {
         element.classList.remove("active");
       }
+
+      this.props.painChoice();
     }
 
     console.dir(e.target);
@@ -29,6 +36,8 @@ export default class PainTypeView extends Component {
     let pain = document.getElementsByClassName("symptoms-container")[0];
     pain.style.display = "flex";
   }
+
+
 
   render() {
     return (
@@ -62,7 +71,7 @@ export default class PainTypeView extends Component {
           <div className="symptoms-container">
             <span className="dashed-line" />
             <p className="g left marginBottom">If you have some additional symptoms, please mark them here</p>
-            <input id="diarehea" className="checkbox" type="checkbox" />
+            <input id="diarehea" className="checkbox" type="checkbox" onChange={this.props.sympClick} />
             <label htmlFor="diarehea">Diarrhea</label>
             <input id="fullness" className="checkbox" type="checkbox" />
             <label htmlFor="fullness">Fullness</label>
