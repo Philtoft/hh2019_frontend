@@ -11,7 +11,9 @@ export default class PainTypeView extends Component {
     // remove existing active values
     let list = document.getElementsByClassName('active');
     for (let element of list) {
-      element.classList.remove("active");
+      if (element.classList.contains("pain-button")) {
+        element.classList.remove("active");
+      }
     }
 
     console.dir(e.target);
