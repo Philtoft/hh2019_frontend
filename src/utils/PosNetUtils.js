@@ -20,63 +20,63 @@ export function checkAbdomenArea(keypoints, minConfidence) {
   };
   const abdomenParts = [
     {
-      bodyPart: "LeftHighAbdomen",
+      bodyPart: "Left Hypochondrium",
       x_min: 0.01,
       x_max: 0.3,
       y_min: 0.01,
       y_max: 0.3
     },
     {
-      bodyPart: "LeftMidAbdomen",
+      bodyPart: "Left lumbar",
       x_min: 0.3,
       x_max: 0.3,
       y_min: 0.3,
       y_max: 0.6
     },
     {
-      bodyPart: "LeftLowAbdomen",
+      bodyPart: "Left iliac region",
       x_min: 0.01,
       x_max: 0.3,
       y_min: 0.6,
       y_max: 1
     },
     {
-      bodyPart: "MidHighAbdomen",
+      bodyPart: "Epigastric region",
       x_min: 0.3,
       x_max: 0.6,
       y_min: 0.01,
       y_max: 0.3
     },
     {
-      bodyPart: "MidMidAbdomen",
+      bodyPart: "Umbilical region",
       x_min: 0.3,
       x_max: 0.6,
       y_min: 0.3,
       y_max: 0.6
     },
     {
-      bodyPart: "MidLowAbdomen",
+      bodyPart: "Hypogastrium",
       x_min: 0.3,
       x_max: 0.6,
       y_min: 0.6,
       y_max: 1
     },
     {
-      bodyPart: "RightHighAbdomen",
+      bodyPart: "Right Hypochondrium",
       x_min: 0.6,
       x_max: 1,
       y_min: 0.01,
       y_max: 0.3
     },
     {
-      bodyPart: "RightMidAbdomen",
+      bodyPart: "Right lumbar",
       x_min: 0.6,
       x_max: 1,
       y_min: 0.3,
       y_max: 0.6
     },
     {
-      bodyPart: "RightLowAbdomen",
+      bodyPart: "Right iliac region",
       x_min: 0.6,
       x_max: 1,
       y_min: 0.6,
