@@ -4,7 +4,7 @@ import {
   isMobile,
   drawKeypoints,
   drawSkeleton,
-  checkMidStomach,
+  checkAbdomenArea,
   takeSnapshot
 } from "../../../utils/PosNetUtils";
 import "./PoseNet.scss";
@@ -80,34 +80,36 @@ export default class PoseNet extends Component {
   }
   stopTimer(isSwitching = false) {
     console.log("Timer stoped!");
-    this.setState({ isCounting: false });
-    if (!isSwitching) {
-      if (!this.state.isFlippedLogic) {
-        //Flip the logic, wait untill the hand is removed
-        this.setState({ isFlippedLogic: true });
-      } else if (this.state.imgUrl === "") {
-        const canvas = this.canvas;
-        const url = takeSnapshot(
-          canvas,
-          this.state.selection,
-          this.props.highlightColor,
-          this.video,
-          this.props.videoWidth,
-          this.props.videoHeight
-        );
+    if (this.state.isCounting) {
+      this.setState({ isCounting: false });
+      if (!isSwitching) {
+        if (!this.state.isFlippedLogic) {
+          //Flip the logic, wait untill the hand is removed
+          this.setState({ isFlippedLogic: true });
+        } else if (this.state.imgUrl === "") {
+          const canvas = this.canvas;
+          const url = takeSnapshot(
+            canvas,
+            this.state.selection,
+            this.props.highlightColor,
+            this.video,
+            this.props.videoWidth,
+            this.props.videoHeight
+          );
 
-        this.setState({
-          imgUrl: url
-        });
+          this.setState({
+            imgUrl: url
+          });
 
-        this.props.setSelection(this.state.selection);
-      } else {
-        this.setState({ isFlippedLogic: false });
+          this.props.setSelection(this.state.selection);
+        } else {
+          this.setState({ isFlippedLogic: false });
+        }
       }
-    }
 
-    clearInterval(this.timer);
-    this.setState({ count: 0 });
+      clearInterval(this.timer);
+      this.setState({ count: 0 });
+    }
   }
   //Timer stuff ends
 
@@ -173,6 +175,7 @@ export default class PoseNet extends Component {
     const net = this.net;
     const video = this.video;
     const poseDetectionFrameInner = async () => {
+      if (this.state.imgUrl !== "") return;
       const pose = await net.estimateSinglePose(
         video,
         imageScaleFactor,
@@ -191,23 +194,17 @@ export default class PoseNet extends Component {
       if (pose.score >= minPoseConfidence) {
         if (showPoints) {
           drawKeypoints(pose.keypoints, minPartConfidence, skeletonColor, ctx);
-          let { bodyPart, isBodyPart, positions } = CheckAbdomenArea(
+          let { bodyPart, isBodyPart, positions } = checkAbdomenArea(
             pose.keypoints,
             minPartConfidence
           );
 
-          if (bodyPart !== this.state.bodyPart) {
-            if (!this.state.isCounting && !this.state.isFlippedLogic) {
-              this.setState({ bodyPart: bodyPart });
-            } else {
-              if (!this.state.isFlippedLogic) {
-                this.setState({ bodyPart: bodyPart });
-              }
-              //Is switching bodyparts, reset the timer and the state
-              this.stopTimer(true);
-            }
-            if (isBodyPart || this.state.isFlippedLogic) this.startTimer();
+          if (bodyPart !== this.state.bodyPart && !this.state.isFlippedLogic) {
+            this.setState({ bodyPart: bodyPart });
+            this.stopTimer(true);
           }
+          if (isBodyPart || this.state.isFlippedLogic) this.startTimer();
+
           if (positions !== null && !this.state.isFlippedLogic) {
             this.setState({
               selection: positions
