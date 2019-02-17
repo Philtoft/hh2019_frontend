@@ -9,12 +9,7 @@ export default class PoseNetContainer extends Component {
     };
   }
 
-  setSelection = n => {
-    this.setState(prevState => ({
-      selection: [n, ...prevState.selection]
-    }));
-  };
   render() {
-    return <PoseNet setSelection={this.setSelection} />;
+    return <PoseNet setSelection={this.props.setSelection} />;
   }
 }

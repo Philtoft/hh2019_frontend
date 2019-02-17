@@ -10,7 +10,10 @@ export default class ContextView extends Component {
     return (
       <div>
         <WelcomePage data={this.props.data} />
-        <PoseNetContainer data={this.props.data} />
+        <PoseNetContainer
+          setSelection={this.props.setSelection}
+          data={this.props.data}
+        />
         <PainTypeView data={this.props.data} />
         <SymptomsView data={this.props.data} />
       </div>

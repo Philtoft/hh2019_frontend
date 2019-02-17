@@ -22,7 +22,7 @@ export default class PoseNet extends Component {
     minPartConfidence: 0.7,
     outputStride: 16,
     imageScaleFactor: 0.5,
-    skeletonColor: "green",
+    skeletonColor: "aqua",
     highlightColor: "red",
     skeletonLineWidth: 2,
     loadingText: "Please wait"
@@ -100,8 +100,8 @@ export default class PoseNet extends Component {
           this.setState({
             imgUrl: url
           });
-
-          this.props.setSelection(this.state.selection);
+          debugger;
+          this.props.setSelection(this.state.selection, this.state.bodyPart);
         } else {
           this.setState({ isFlippedLogic: false });
         }

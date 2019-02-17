@@ -17,6 +17,14 @@ class App extends Component {
       gender: "female"
     };
   }
+
+  setSelection = (selection, location) => {
+    this.setState({
+      selection: selection,
+      painLocation: location
+    });
+  };
+
   componentDidMount() {
     this.axios_instance = axios.create({
       baseURL: BASE_URL,
@@ -27,7 +35,7 @@ class App extends Component {
     const { data } = this.state;
     return (
       <div className="main">
-        <ContextView data={data} />
+        <ContextView data={data} setSelection={this.setSelection} />
       </div>
     );
   }

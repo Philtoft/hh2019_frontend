@@ -190,7 +190,6 @@ export function takeSnapshot(
   ctx.translate(-videoWidth, 0);
   ctx.drawImage(video, 0, 0, videoWidth, videoHeight);
   ctx.restore();
-  console.log(selection);
   ctx.beginPath();
   ctx.arc(selection.x, selection.y, 10, 0, 2 * Math.PI);
   ctx.fillStyle = highLightColor;
