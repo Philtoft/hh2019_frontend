@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="224px" height="224px" viewBox="0 0 224 224" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 51.2 (57519) - http://www.bohemiancoding.com/sketch -->
+    <title>Group 6</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <filter x="-21.4%" y="-15.3%" width="142.8%" height="142.8%" filterUnits="objectBoundingBox" id="filter-1">
+            <feOffset dx="0" dy="11" in="SourceAlpha" result="shadowOffsetOuter1"></feOffset>
+            <feGaussianBlur stdDeviation="11" in="shadowOffsetOuter1" result="shadowBlurOuter1"></feGaussianBlur>
+            <feColorMatrix values="0 0 0 0 0   0 0 0 0 0   0 0 0 0 0  0 0 0 0.344061368 0" type="matrix" in="shadowBlurOuter1" result="shadowMatrixOuter1"></feColorMatrix>
+            <feMerge>
+                <feMergeNode in="shadowMatrixOuter1"></feMergeNode>
+                <feMergeNode in="SourceGraphic"></feMergeNode>
+            </feMerge>
+        </filter>
+        <linearGradient x1="50%" y1="0%" x2="50%" y2="100%" id="linearGradient-2">
+            <stop stop-color="#00957B" offset="0%"></stop>
+            <stop stop-color="#005C45" offset="100%"></stop>
+        </linearGradient>
+    </defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="First-screen" transform="translate(-698.000000, -637.000000)">
+            <g id="Group-6" filter="url(#filter-1)" transform="translate(720.000000, 648.000000)">
+                <g id="Group-4">
+                    <rect id="Rectangle-4" fill="#FFFFFF" x="0" y="0" width="180" height="180"></rect>
+                    <g id="Group-3" transform="translate(43.000000, 132.000000)" fill="#474747" font-family="Roboto-Regular, Roboto" font-size="18" font-weight="normal">
+                        <g id="Group-13">
+                            <text id="with-mouse">
+                                <tspan x="0.0366210938" y="17">with mouse</tspan>
+                            </text>
+                        </g>
+                    </g>
+                    <g id="noun_Mouse_795244" transform="translate(53.000000, 28.000000)" fill="url(#linearGradient-2)" fill-rule="nonzero">
+                        <g id="Group">
+                            <path d="M19.2784557,1.5755625 C15.9461685,2.11099728 12.5398362,3.49515489 9.34170846,3.66447554 C7.20073858,3.75333424 5.55609719,3.28466576 2.37571039,1.70298098 C1.60466233,1.31616033 0.549193306,1.66222011 0.160293167,2.42885054 C-0.228615167,3.19580707 0.119157056,4.24564402 0.890311639,4.63238315 C4.26617692,6.31140489 6.70635136,7.03980163 9.46975485,6.92501902 C13.5905279,6.48928533 16.9697775,5.50531793 20.021151,4.73452989 C27.5224765,3.18325272 31.0237987,4.2680625 32.6214122,5.62613315 C33.952526,6.75757337 34.3057721,8.31912228 34.3885196,9.67637772 L28.6774261,9.67637772 C20.0794298,9.67637772 13.1063755,16.6120027 13.1063755,25.1640408 L13.1063755,46.3577446 C13.1064001,54.0863315 15.9080479,61.1704891 20.1492055,66.3541304 C24.390355,71.5377717 30.1244748,74.887663 36.1044035,74.887663 C42.0391807,74.887663 47.7557808,71.537038 51.9827785,66.3541304 C56.2097843,61.1712228 59.0000008,54.0863315 59.0000008,46.3577446 L59.0000008,25.1640408 C59.0000008,16.6120027 52.0269465,9.67637772 43.4289503,9.67637772 L37.6666333,9.67637772 C37.5755521,7.8373288 37.0887611,5.14564402 34.7470593,3.15520924 C29.8234028,-0.0437853261 24.9787161,0.41542663 19.2784557,1.5755625 Z M28.6774261,12.9366766 L34.4141272,12.9366766 L34.4141272,29.2394755 L16.3844893,29.2394755 L16.3844893,25.1637962 C16.3844893,18.3616223 21.8387771,12.9366766 28.6774261,12.9366766 Z M37.692241,12.9366766 L43.4289503,12.9366766 C50.2675993,12.9366766 55.7218789,18.3616223 55.7218789,25.1637962 L55.7218789,29.2394755 L37.692241,29.2394755 L37.692241,12.9366766 Z M16.3844893,32.5001005 L55.7218789,32.5001005 L55.7218789,46.3575 C55.7218789,53.3011957 53.1979654,59.6917663 49.44736,64.2905707 C45.6967628,68.889212 40.7722868,71.626875 36.1044035,71.626875 C31.379241,71.626875 26.4466935,68.8885598 22.684624,64.2905707 C18.9225464,59.692337 16.3845057,53.3011957 16.3844893,46.3575 L16.3844893,32.5001005 Z" id="Shape"></path>
+                        </g>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

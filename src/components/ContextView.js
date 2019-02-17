@@ -6,7 +6,7 @@ import PainTypeView from "./PainTypeView/PainTypeView";
 import SymptomsView from "./SymptomsView/SymptomsView";
 
 export default class ContextView extends Component {
-  
+
   render() {
     const intent = this.props.data.currentIntent;
     console.log(intent);
@@ -15,7 +15,7 @@ export default class ContextView extends Component {
       case "mouseMode":
         return(
           <div id="welcome">
-            {/* <PoseNetContainer  data = {this.props.data} /> */}
+            <PoseNetContainer genderChooser={this.props.genderChooser} data = {this.props.data} />
             <PainTypeView data={this.props.data} />
             <SymptomsView data={this.props.data} />
           </div>

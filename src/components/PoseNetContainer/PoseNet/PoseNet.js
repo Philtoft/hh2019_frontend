@@ -205,10 +205,15 @@ export default class PoseNet extends Component {
       ""
     );
     return (
+      <div>
+      <p className="message">
+          Now, point to the pain area with your left hand and / or right hand
+        </p>
       <div className="PoseNet">
         {loading}
-        <video playsInline ref={this.getVideo} />
-        <canvas ref={this.getCanvas} />
+        {/* <video playsInline ref={this.getVideo} />
+        <canvas ref={this.getCanvas} /> */}
+      </div>
       </div>
     );
   }

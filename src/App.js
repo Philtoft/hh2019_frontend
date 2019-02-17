@@ -15,7 +15,7 @@ class App extends Component {
       painType: "",
       additionalSymptoms: "",
       painLocation: "",
-      gender: "female"
+      gender: true
     };
   }
   componentDidMount() {
@@ -24,6 +24,10 @@ class App extends Component {
       headers: { "Content-Type": "application/json" }
     });
   }
+
+  genderChooser = () => {
+    this.setState((previousState,props)=>({gender:!previousState.gender}));
+  };
 
   clickCamera = () => {
     this.setState({currentIntent: 'cameraMode'});
@@ -37,7 +41,7 @@ class App extends Component {
     const data = this.state;
     return (
       <div className="main">
-        <ContextView data={data} clickCamera={this.clickCamera}  clickMouse={this.clickMouse}/>
+        <ContextView data={data} genderChooser = {this.genderChooser} clickCamera={this.clickCamera}  clickMouse={this.clickMouse} />
       </div>
     );
   }
