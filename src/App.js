@@ -15,7 +15,8 @@ class App extends Component {
       painType: "",
       additionalSymptoms: "",
       painLocation: "",
-      gender: true
+      gender: true,
+      genderChosen: false
     };
   }
   componentDidMount() {
@@ -26,7 +27,7 @@ class App extends Component {
   }
 
   genderChooser = () => {
-    this.setState((previousState,props)=>({gender:!previousState.gender}));
+    this.setState((previousState,props)=>({gender:!previousState.gender, genderChosen: true}));
   };
 
   clickCamera = () => {

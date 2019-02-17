@@ -14,7 +14,7 @@ export default class ContextView extends Component {
       case "cameraMode":
       case "mouseMode":
         return(
-          <div id="welcome">
+          <div id="column1">
             <PoseNetContainer genderChooser={this.props.genderChooser} data = {this.props.data} />
             <PainTypeView data={this.props.data} />
             <SymptomsView data={this.props.data} />

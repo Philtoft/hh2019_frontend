@@ -5,9 +5,15 @@ export default class PoseNetContainer extends Component {
   render() {
 
     //return <PoseNet />;
-    return ( <div className="column">
+    if(this.props.data.genderChosen){
+      return ( <div className="column">
               <GenderChooser  genderChooser = {this.props.genderChooser}/>
               <PoseNet />
             </div>);
+    } else {
+      return ( <div className="column">
+      <GenderChooser  genderChooser = {this.props.genderChooser}/>
+    </div>);
+    }
   }
 }
