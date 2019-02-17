@@ -8,12 +8,12 @@ export default class GenderChooser extends Component {
   genderClick = (e) => {
     // remove existing active values
     let list = document.getElementsByClassName('active');
-    for (let element of list){
+    for (let element of list) {
       element.removeAttribute('class');
     }
 
     //  sets current gender as active
-    e.target.className  = "active";
+    e.target.className = "active";
     this.props.genderChooser();
 
     // 
@@ -22,21 +22,21 @@ export default class GenderChooser extends Component {
   render() {
     return (
       <div>
-      <header className="column-header">
-        <img src={step1} alt />
-      </header>
-      <div className="content">
-        <img src={doctor} id="doctor" alt />
-        <p className="message">
-          Hi! Please choose your gender
+        <header className="column-header">
+          <img id="step1" src={step1} alt />
+        </header>
+        <div className="content">
+          <img src={doctor} id="doctor" alt />
+          <p className="message">
+            Hi! Please choose your gender
         </p>
-        <div className="gender">
-          <img src={man} alt className onClick = {this.genderClick}/>
-          <img src={woman} alt className onClick = {this.genderClick}/>
+          <div className="gender">
+            <img src={man} alt className onClick={this.genderClick} />
+            <img src={woman} alt className onClick={this.genderClick} />
+          </div>
+
         </div>
-        
       </div>
-    </div>
     )
   }
 }

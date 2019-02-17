@@ -26,13 +26,13 @@ export default class WelcomePage extends Component {
           <div className="round-container">
             <div className="left-content">
               <h1>Understand abdomenal pain symptoms</h1>
-              <p>Tool to helo you identiy your symptoms</p>
+              <p>Tool to help you identify your symptoms, 100% anonymously.</p>
             </div>
             <div className="right-content">
               <img src={phone} alt />
               <img id="doctor" src={doctor} alt />
-              <p className="g">Hi I am Anna and I can help you to better understand and describe your pain</p>
-              <button id="start-button">start symptoms assesment</button>
+              <p className="g">Hi I'm Anna and I can help you to better understand and describe your pain. </p>
+              <button id="start-button">Start symptoms assesment</button>
               <img src={arrow} id="arrow" alt />
             </div>
           </div>

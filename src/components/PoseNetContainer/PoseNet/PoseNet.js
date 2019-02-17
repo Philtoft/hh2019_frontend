@@ -202,18 +202,18 @@ export default class PoseNet extends Component {
     const loading = this.state.loading ? (
       <div className="PoseNet__loading">{this.props.loadingText}</div>
     ) : (
-      ""
-    );
+        ""
+      );
     return (
       <div>
-      <p className="message">
+        <p className="message">
           Now, point to the pain area with your left hand and / or right hand
         </p>
-      <div className="PoseNet">
-        {loading}
-        {/* <video playsInline ref={this.getVideo} />
-        <canvas ref={this.getCanvas} /> */}
-      </div>
+        <div className="PoseNet">
+          {loading}
+          <video playsInline ref={this.getVideo} />
+          <canvas ref={this.getCanvas} />
+        </div>
       </div>
     );
   }
