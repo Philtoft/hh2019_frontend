@@ -22,7 +22,7 @@ export default class PoseNet extends Component {
     minPartConfidence: 0.7,
     outputStride: 16,
     imageScaleFactor: 0.5,
-    skeletonColor: "aqua",
+    skeletonColor: "green",
     highlightColor: "red",
     skeletonLineWidth: 2,
     loadingText: "Please wait"
@@ -32,10 +32,11 @@ export default class PoseNet extends Component {
     super(props, PoseNet.defaultProps);
     this.state = {
       loading: true,
-      isMidStomach: false,
+      isBodyPart: false,
+      bodyPart: "None",
       isFlippedLogic: false,
       count: 0,
-      timer_counts: 1,
+      timer_counts: 2,
       isCounting: false,
       selection: [],
       isStatic: false,
@@ -69,34 +70,40 @@ export default class PoseNet extends Component {
     this.setState({ count: this.state.count + 1 });
   }
   startTimer() {
-    console.log("Timer started!");
-    clearInterval(this.timer);
-    this.setState({ isCounting: true }, () => {
-      this.timer = setInterval(this.tick.bind(this), 1000);
-    });
+    if (!this.state.isCounting) {
+      console.log("Timer started!");
+      clearInterval(this.timer);
+      this.setState({ isCounting: true }, () => {
+        this.timer = setInterval(this.tick.bind(this), 1000);
+      });
+    }
   }
-  stopTimer() {
+  stopTimer(isSwitching = false) {
     console.log("Timer stoped!");
     this.setState({ isCounting: false });
-    if (!this.state.isFlippedLogic) {
-      //Flip the logic, wait untill the hand is removed
-      this.setState({ isFlippedLogic: true });
-    } else if (this.state.imgUrl === "") {
-      const canvas = this.canvas;
-      const url = takeSnapshot(
-        canvas,
-        this.state.selection,
-        this.props.highlightColor,
-        this.video,
-        this.props.videoWidth,
-        this.props.videoHeight
-      );
+    if (!isSwitching) {
+      if (!this.state.isFlippedLogic) {
+        //Flip the logic, wait untill the hand is removed
+        this.setState({ isFlippedLogic: true });
+      } else if (this.state.imgUrl === "") {
+        const canvas = this.canvas;
+        const url = takeSnapshot(
+          canvas,
+          this.state.selection,
+          this.props.highlightColor,
+          this.video,
+          this.props.videoWidth,
+          this.props.videoHeight
+        );
 
-      this.setState({
-        imgUrl: url
-      });
+        this.setState({
+          imgUrl: url
+        });
 
-      this.props.setSelection(this.state.selection);
+        this.props.setSelection(this.state.selection);
+      } else {
+        this.setState({ isFlippedLogic: false });
+      }
     }
 
     clearInterval(this.timer);
@@ -184,17 +191,22 @@ export default class PoseNet extends Component {
       if (pose.score >= minPoseConfidence) {
         if (showPoints) {
           drawKeypoints(pose.keypoints, minPartConfidence, skeletonColor, ctx);
-          let { pointsToMidStomach, positions } = checkMidStomach(
+          let { bodyPart, isBodyPart, positions } = CheckAbdomenArea(
             pose.keypoints,
             minPartConfidence
           );
-          if (
-            pointsToMidStomach !== this.state.isMidStomach &&
-            !this.state.isCounting
-          ) {
-            this.setState({ isMidStomach: pointsToMidStomach });
-            if (pointsToMidStomach || this.state.isFlippedLogic)
-              this.startTimer();
+
+          if (bodyPart !== this.state.bodyPart) {
+            if (!this.state.isCounting && !this.state.isFlippedLogic) {
+              this.setState({ bodyPart: bodyPart });
+            } else {
+              if (!this.state.isFlippedLogic) {
+                this.setState({ bodyPart: bodyPart });
+              }
+              //Is switching bodyparts, reset the timer and the state
+              this.stopTimer(true);
+            }
+            if (isBodyPart || this.state.isFlippedLogic) this.startTimer();
           }
           if (positions !== null && !this.state.isFlippedLogic) {
             this.setState({
@@ -237,11 +249,12 @@ export default class PoseNet extends Component {
     };
     return (
       <div className="PoseNet">
-        <h1>
-          Selected Part:{" "}
-          {this.state.isMidStomach || this.state.isFlippedLogic
-            ? "Mid stomach"
-            : "None"}
+        <h1
+          style={
+            this.state.isFlippedLogic ? { color: "green" } : { color: "red" }
+          }
+        >
+          Selected Part: {this.state.bodyPart}
         </h1>
         <video playsInline ref={this.getVideo} />
         <canvas ref={this.getCanvas} style={stateStyleCanvas} />

@@ -10,7 +10,7 @@ export function isMobile() {
   return isAndroid() || isiOS();
 }
 
-export function checkMidStomach(keypoints, minConfidence) {
+export function checkAbdomenArea(keypoints, minConfidence) {
   let pointsOfInterest = {
     leftWrist: { point: keypoints[9] },
     leftHip: { point: keypoints[11] },
@@ -18,42 +18,108 @@ export function checkMidStomach(keypoints, minConfidence) {
     leftShoulder: { point: keypoints[5] },
     rightShoulder: { point: keypoints[6] }
   };
+  const abdomenParts = [
+    {
+      bodyPart: "LeftHighAbdomen",
+      x_min: 0.01,
+      x_max: 0.3,
+      y_min: 0.01,
+      y_max: 0.3
+    },
+    {
+      bodyPart: "LeftMidAbdomen",
+      x_min: 0.3,
+      x_max: 0.3,
+      y_min: 0.3,
+      y_max: 0.6
+    },
+    {
+      bodyPart: "LeftLowAbdomen",
+      x_min: 0.01,
+      x_max: 0.3,
+      y_min: 0.6,
+      y_max: 1
+    },
+    {
+      bodyPart: "MidHighAbdomen",
+      x_min: 0.3,
+      x_max: 0.6,
+      y_min: 0.01,
+      y_max: 0.3
+    },
+    {
+      bodyPart: "MidMidAbdomen",
+      x_min: 0.3,
+      x_max: 0.6,
+      y_min: 0.3,
+      y_max: 0.6
+    },
+    {
+      bodyPart: "MidLowAbdomen",
+      x_min: 0.3,
+      x_max: 0.6,
+      y_min: 0.6,
+      y_max: 1
+    },
+    {
+      bodyPart: "RightHighAbdomen",
+      x_min: 0.6,
+      x_max: 1,
+      y_min: 0.01,
+      y_max: 0.3
+    },
+    {
+      bodyPart: "RightMidAbdomen",
+      x_min: 0.6,
+      x_max: 1,
+      y_min: 0.3,
+      y_max: 0.6
+    },
+    {
+      bodyPart: "RightLowAbdomen",
+      x_min: 0.6,
+      x_max: 1,
+      y_min: 0.6,
+      y_max: 1
+    }
+  ];
   let confidentPoints = Object.keys(pointsOfInterest).filter(function(key) {
     return pointsOfInterest[key].point.score >= minConfidence;
   });
+
   if (confidentPoints.length === 5) {
-    const bodyLength = Math.abs(
-      pointsOfInterest["leftShoulder"].point.position.y -
-        pointsOfInterest["leftHip"].point.position.y
-    );
-    const bodyWidth = Math.abs(
-      pointsOfInterest["rightShoulder"].point.position.x -
-        pointsOfInterest["leftShoulder"].point.position.x
-    );
-    const lowerThreshold_y =
-      pointsOfInterest["leftShoulder"].point.position.y + 0.3 * bodyLength;
-    const upperThreshold_y =
-      pointsOfInterest["leftShoulder"].point.position.y + 0.6 * bodyLength;
-    const handLocation_y = pointsOfInterest["leftWrist"].point.position.y;
+    //
+    const leftShoulder = pointsOfInterest["leftShoulder"].point.position;
+    const rightShoulder = pointsOfInterest["rightShoulder"].point.position;
+    const leftWrist = pointsOfInterest["leftWrist"].point.position;
 
-    const lowerThreshold_x =
-      pointsOfInterest["rightShoulder"].point.position.x + 0.2 * bodyWidth;
-    const upperThreshold_x =
-      pointsOfInterest["rightShoulder"].point.position.x + 0.8 * bodyWidth;
-    const handLocation_x = pointsOfInterest["leftWrist"].point.position.x;
+    for (let part of abdomenParts) {
+      const bodyLength = Math.abs(
+        leftShoulder.y - pointsOfInterest["leftHip"].point.position.y
+      );
+      const bodyWidth = Math.abs(rightShoulder.x - leftShoulder.x);
+      const lowerThreshold_y = leftShoulder.y + part.y_min * bodyLength;
+      const upperThreshold_y = leftShoulder.y + part.y_max * bodyLength;
+      const lowerThreshold_x = rightShoulder.x + part.x_min * bodyWidth;
+      const upperThreshold_x = rightShoulder.x + part.x_max * bodyWidth;
 
-    if (
-      lowerThreshold_y < handLocation_y &&
-      handLocation_y < upperThreshold_y &&
-      (lowerThreshold_x < handLocation_x && handLocation_x < upperThreshold_x)
-    ) {
-      return {
-        pointsToMidStomach: true,
-        positions: pointsOfInterest["leftWrist"].point.position
-      };
+      const handLocation_y = leftWrist.y;
+      const handLocation_x = leftWrist.x;
+
+      if (
+        lowerThreshold_y < handLocation_y &&
+        handLocation_y < upperThreshold_y &&
+        (lowerThreshold_x < handLocation_x && handLocation_x < upperThreshold_x)
+      ) {
+        return {
+          bodyPart: part.bodyPart,
+          isBodyPart: true,
+          positions: leftWrist
+        };
+      }
     }
   }
-  return { pointsToMidStomach: false, positions: null };
+  return { bodyPart: "None", isBodyPart: false, positions: null };
 }
 export function drawKeypoints(
   keypoints,
