@@ -32,10 +32,13 @@ export function checkMidStomach(keypoints, minConfidence) {
     const handLocation_y = pointsOfInterest["leftWrist"].point.position.y;
 
     if (lowerThreshold < handLocation_y && handLocation_y < upperThreshold) {
-      return true;
+      return {
+        pointsToMidStomach: true,
+        positions: pointsOfInterest["leftWrist"].point.position
+      };
     }
   }
-  return false;
+  return { pointsToMidStomach: false, positions: null };
 }
 export function drawKeypoints(
   keypoints,
@@ -46,9 +49,6 @@ export function drawKeypoints(
 ) {
   keypoints.forEach(keypoint => {
     if (keypoint.score >= minConfidence) {
-      if (keypoint.part === "leftWrist") {
-      }
-
       const { y, x } = keypoint.position;
       ctx.beginPath();
       ctx.arc(x * scale, y * scale, 3, 0, 2 * Math.PI);
@@ -93,4 +93,31 @@ export function drawSkeleton(
       ctx
     );
   });
+}
+export function takeSnapshot(
+  canvas,
+  selection,
+  highLightColor,
+  video,
+  videoWidth,
+  videoHeight
+) {
+  let ctx = canvas.getContext("2d");
+  ctx.clearRect(0, 0, videoWidth, videoHeight);
+  ctx.save();
+  ctx.scale(-1, 1);
+  ctx.translate(-videoWidth, 0);
+  ctx.drawImage(video, 0, 0, videoWidth, videoHeight);
+  ctx.restore();
+  console.log(selection);
+  ctx.beginPath();
+  ctx.arc(selection.x, selection.y, 10, 0, 2 * Math.PI);
+  ctx.fillStyle = highLightColor;
+  ctx.fill();
+  const snapshot = canvas.toDataURL({
+    format: "jpeg",
+    quality: 1
+  });
+
+  return snapshot;
 }

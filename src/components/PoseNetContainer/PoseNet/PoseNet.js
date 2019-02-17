@@ -4,7 +4,8 @@ import {
   isMobile,
   drawKeypoints,
   drawSkeleton,
-  checkMidStomach
+  checkMidStomach,
+  takeSnapshot
 } from "../../../utils/PosNetUtils";
 import "./PoseNet.scss";
 
@@ -22,6 +23,7 @@ export default class PoseNet extends Component {
     outputStride: 16,
     imageScaleFactor: 0.5,
     skeletonColor: "aqua",
+    highlightColor: "red",
     skeletonLineWidth: 2,
     loadingText: "Please wait"
   };
@@ -33,7 +35,10 @@ export default class PoseNet extends Component {
       isMidStomach: false,
       isFlippedLogic: false,
       count: 0,
-      timer_counts: 2
+      timer_counts: 2,
+      selection: [],
+      isStatic: false,
+      imgUrl: ""
     };
   }
 
@@ -68,16 +73,27 @@ export default class PoseNet extends Component {
     this.timer = setInterval(this.tick.bind(this), 1000);
   }
   stopTimer() {
-    console.log("Timer stoped!");
-
     if (!this.state.isFlippedLogic) {
       //Flip the logic, wait untill the hand is removed
-      console.log("YOU SHOW YOUR BELLY !!");
       this.setState({ isFlippedLogic: true });
-    } else {
-      //TODO actual state change
-      this.setState({ isFlippedLogic: false });
-      console.log("YOU  DON'T SHOW YOUR BELLY !!");
+    } else if (this.state.imgUrl === "") {
+      console.log("wrong place");
+      const canvas = this.canvas;
+      const url = takeSnapshot(
+        canvas,
+        this.state.selection,
+        this.props.highlightColor,
+        this.video,
+        this.props.videoWidth,
+        this.props.videoHeight
+      );
+
+      this.setState({
+        isFlippedLogic: false,
+        imgUrl: url
+      });
+
+      this.props.setSelection(this.state.selection);
     }
 
     clearInterval(this.timer);
@@ -92,7 +108,9 @@ export default class PoseNet extends Component {
   getVideo = elem => {
     this.video = elem;
   };
-
+  getImgURL = elem => {
+    return this.state.imgUrl;
+  };
   async setupCamera() {
     if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
       throw new Error(
@@ -163,13 +181,18 @@ export default class PoseNet extends Component {
       if (pose.score >= minPoseConfidence) {
         if (showPoints) {
           drawKeypoints(pose.keypoints, minPartConfidence, skeletonColor, ctx);
-          const pointsToMidStomach = checkMidStomach(
+          let { pointsToMidStomach, positions } = checkMidStomach(
             pose.keypoints,
             minPartConfidence
           );
           if (pointsToMidStomach !== this.state.isMidStomach) {
             this.setState({ isMidStomach: pointsToMidStomach });
             pointsToMidStomach ? this.startTimer() : this.stopTimer();
+          }
+          if (positions !== null && !this.state.isFlippedLogic) {
+            this.setState({
+              selection: positions
+            });
           }
         }
         if (showSkeleton) {
@@ -199,16 +222,17 @@ export default class PoseNet extends Component {
   }
 
   render() {
-    const loading = this.state.loading ? (
-      <div className="PoseNet__loading">{this.props.loadingText}</div>
-    ) : (
-      ""
-    );
+    const stateStyleImg = {
+      display: this.state.imgUrl === "" ? "none" : "block"
+    };
+    const stateStyleCanvas = {
+      display: this.state.imgUrl === "" ? "block" : "none"
+    };
     return (
       <div className="PoseNet">
-        {loading}
         <video playsInline ref={this.getVideo} />
-        <canvas ref={this.getCanvas} />
+        <canvas ref={this.getCanvas} style={stateStyleCanvas} />
+        <img src={this.state.imgUrl} alt="" style={stateStyleImg} />
       </div>
     );
   }

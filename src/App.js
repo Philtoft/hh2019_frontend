@@ -3,7 +3,6 @@ import "./App.scss";
 import ContextView from "./components/ContextView";
 
 import axios from "axios";
-import { PoseNet } from "@tensorflow-models/posenet";
 
 const BASE_URL = "http://localhost:5000";
 
