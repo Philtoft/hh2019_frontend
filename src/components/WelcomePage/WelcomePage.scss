@@ -1,7 +1,7 @@
 @import url("https://fonts.googleapis.com/css?family=Lato");
 * {
   -webkit-box-sizing: border-box;
-          box-sizing: border-box;
+  box-sizing: border-box;
   margin: 0;
 }
 
@@ -31,7 +31,13 @@ header {
 
 .round-container {
   background: #4da56d;
-  background: -webkit-gradient(linear, left top, left bottom, from(#4da56d), to(#186652));
+  background: -webkit-gradient(
+    linear,
+    left top,
+    left bottom,
+    from(#4da56d),
+    to(#186652)
+  );
   background: linear-gradient(to bottom, #4da56d 0%, #186652 100%);
   filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#4da56d', endColorstr='#186652', GradientType=0);
   border-radius: 30px;
@@ -41,18 +47,18 @@ header {
   display: flex;
   -webkit-box-orient: horizontal;
   -webkit-box-direction: normal;
-      -ms-flex-direction: row;
-          flex-direction: row;
+  -ms-flex-direction: row;
+  flex-direction: row;
   -webkit-box-pack: justify;
-      -ms-flex-pack: justify;
-          justify-content: space-between;
+  -ms-flex-pack: justify;
+  justify-content: space-between;
   max-height: 450px;
 }
 
 .round-container .left-content {
   -ms-flex-item-align: center;
-      -ms-grid-row-align: center;
-      align-self: center;
+  -ms-grid-row-align: center;
+  align-self: center;
   color: #fff;
   font-size: 25px;
   font-weight: 100;
@@ -72,7 +78,7 @@ header {
 
 .round-container .right-content {
   -ms-flex-item-align: center;
-      align-self: center;
+  align-self: center;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -80,12 +86,12 @@ header {
   width: 292px;
 }
 
-.round-container .right-content #doctor {
+.round-container .right-content .doctor {
   position: absolute;
   top: 20%;
   left: 50%;
   -webkit-transform: translateX(-50%);
-          transform: translateX(-50%);
+  transform: translateX(-50%);
 }
 
 .round-container .right-content p {
@@ -97,20 +103,20 @@ header {
   text-align: center;
   left: 50%;
   -webkit-transform: translateX(-50%);
-          transform: translateX(-50%);
+  transform: translateX(-50%);
   font-style: italic;
 }
 
-#start-button,
-#arrow {
+.start-button,
+.arrow {
   position: absolute;
 }
 
-#start-button {
+.start-button {
   bottom: 75px;
   left: 50%;
   -webkit-transform: translateX(-50%);
-          transform: translateX(-50%);
+  transform: translateX(-50%);
   padding: 10px 5px;
   border-radius: 25px;
   background: orange;
@@ -120,7 +126,7 @@ header {
   color: #fff;
 }
 
-#arrow {
+.arrow {
   bottom: -125px;
   right: 100px;
 }
@@ -131,15 +137,15 @@ header {
   display: flex;
   -webkit-box-orient: horizontal;
   -webkit-box-direction: normal;
-      -ms-flex-direction: row;
-          flex-direction: row;
+  -ms-flex-direction: row;
+  flex-direction: row;
   -webkit-box-pack: justify;
-      -ms-flex-pack: justify;
-          justify-content: space-between;
+  -ms-flex-pack: justify;
+  justify-content: space-between;
   max-width: 325px;
   margin: 75px auto 0;
   -ms-flex-wrap: wrap;
-      flex-wrap: wrap;
+  flex-wrap: wrap;
 }
 
 .options > p {
@@ -157,22 +163,22 @@ header {
   display: flex;
   -webkit-box-orient: vertical;
   -webkit-box-direction: normal;
-      -ms-flex-direction: column;
-          flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
   -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
   text-align: center;
   -webkit-box-shadow: 0 0 25px rgba(0, 0, 0, 0.3);
-          box-shadow: 0 0 25px rgba(0, 0, 0, 0.3);
-  -webkit-transition: .35s;
-  transition: .35s;
+  box-shadow: 0 0 25px rgba(0, 0, 0, 0.3);
+  -webkit-transition: 0.35s;
+  transition: 0.35s;
   cursor: pointer;
 }
 
 .options .option:hover {
   -webkit-box-shadow: 0 0 15px rgba(0, 0, 0, 0.45);
-          box-shadow: 0 0 15px rgba(0, 0, 0, 0.45);
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.45);
 }
 
 .options .option img {

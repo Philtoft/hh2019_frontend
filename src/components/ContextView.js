@@ -6,7 +6,6 @@ import PainTypeView from "./PainTypeView/PainTypeView";
 import SymptomsView from "./SymptomsView/SymptomsView";
 
 export default class ContextView extends Component {
-
   render() {
     const intent = this.props.data.currentIntent;
     console.log(intent);
@@ -16,14 +15,22 @@ export default class ContextView extends Component {
         if (this.props.data.genderChosen) {
           return (
             <div className="full-container">
-              <PoseNetContainer genderChooser={this.props.genderChooser} data={this.props.data} />
+              <PoseNetContainer
+                genderChooser={this.props.genderChooser}
+                data={this.props.data}
+                setSelection={this.props.setSelection}
+              />
               <PainTypeView data={this.props.data} />
             </div>
           );
         } else {
           return (
             <div className="full-container">
-              <PoseNetContainer genderChooser={this.props.genderChooser} data={this.props.data} />
+              <PoseNetContainer
+                genderChooser={this.props.genderChooser}
+                data={this.props.data}
+                setSelection={this.props.setSelection}
+              />
             </div>
           );
         }
@@ -36,7 +43,7 @@ export default class ContextView extends Component {
               clickMouse={this.props.clickMouse}
             />
           </div>
-        )
+        );
       default:
         return (
           <div>
@@ -50,7 +57,5 @@ export default class ContextView extends Component {
           </div>
         );
     }
-
-
   }
 }

@@ -3,7 +3,6 @@ import "./App.scss";
 import ContextView from "./components/ContextView";
 
 import axios from "axios";
-import { PoseNet } from "@tensorflow-models/posenet";
 
 const BASE_URL = "http://localhost:5000";
 
@@ -19,30 +18,45 @@ class App extends Component {
       genderChosen: false
     };
   }
+
   componentDidMount() {
     this.axios_instance = axios.create({
       baseURL: BASE_URL,
       headers: { "Content-Type": "application/json" }
     });
   }
-
+  setSelection = (selection, location) => {
+    this.setState({
+      selection: selection,
+      painLocation: location
+    });
+  };
   genderChooser = () => {
-    this.setState((previousState,props)=>({gender:!previousState.gender, genderChosen: true}));
+    this.setState((previousState, props) => ({
+      gender: !previousState.gender,
+      genderChosen: true
+    }));
   };
 
   clickCamera = () => {
-    this.setState({currentIntent: 'cameraMode'});
-  }
+    this.setState({ currentIntent: "cameraMode" });
+  };
 
   clickMouse = () => {
-    this.setState({currentIntent: 'mouseMode'});
-  }
+    this.setState({ currentIntent: "mouseMode" });
+  };
 
   render() {
     const data = this.state;
     return (
       <div className="main">
-        <ContextView data={data} genderChooser = {this.genderChooser} clickCamera={this.clickCamera}  clickMouse={this.clickMouse} />
+        <ContextView
+          data={data}
+          setSelection={this.setSelection}
+          clickMouse={this.clickMouse}
+          clickCamera={this.clickCamera}
+          genderChooser={this.genderChooser}
+        />
       </div>
     );
   }
